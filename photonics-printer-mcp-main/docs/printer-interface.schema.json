@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Photonics printer interface version 1",
+  "oneOf": [{"$ref": "#/$defs/request"}, {"$ref": "#/$defs/response"}],
+  "$defs": {
+    "id": {"type": ["string", "integer"]},
+    "target": {
+      "type": "object", "additionalProperties": false, "required": ["x", "y", "z"],
+      "properties": {
+        "x": {"type": "number", "description": "Absolute mm; validated against the connected printer's reported X limits."},
+        "y": {"type": "number", "description": "Absolute mm; validated against the connected printer's reported Y limits."},
+        "z": {"type": "number", "description": "Absolute mm; validated against the connected printer's reported Z limits."}
+      }
+    },
+    "request": {
+      "oneOf": [
+        {
+          "type": "object", "additionalProperties": false, "required": ["command", "target"],
+          "properties": {
+            "command": {"const": "move"}, "id": {"$ref": "#/$defs/id"},
+            "target": {"$ref": "#/$defs/target"},
+            "speed_mm_s": {"type": "number", "exclusiveMinimum": 0, "maximum": 30, "default": 20},
+            "preview": {"type": "boolean", "default": true}, "token": {"type": "string"},
+            "operator_confirmed": {"type": "boolean", "default": false}
+          },
+          "allOf": [{"$ref": "#/$defs/execution_fields"}]
+        },
+        {
+          "type": "object", "additionalProperties": false, "required": ["command"],
+          "properties": {
+            "command": {"const": "home"}, "id": {"$ref": "#/$defs/id"},
+            "axes": {"type": "array", "minItems": 1, "maxItems": 3, "uniqueItems": true,
+                     "items": {"enum": ["x", "y", "z"]}, "default": ["x", "y", "z"]},
+            "preview": {"type": "boolean", "default": true}, "token": {"type": "string"},
+            "operator_confirmed": {"type": "boolean", "default": false}
+          },
+          "allOf": [{"$ref": "#/$defs/execution_fields"}]
+        },
+        {
+          "type": "object", "additionalProperties": false, "required": ["command"],
+          "properties": {
+            "command": {"enum": ["position", "status", "capabilities", "stop"]},
+            "id": {"$ref": "#/$defs/id"}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false, "required": ["command", "job_id"],
+          "properties": {"command": {"const": "job"}, "id": {"$ref": "#/$defs/id"}, "job_id": {"type": "string"}}
+        }
+      ]
+    },
+    "execution_fields": {
+      "if": {"required": ["preview"], "properties": {"preview": {"const": false}}},
+      "then": {"required": ["token", "operator_confirmed"], "properties": {"operator_confirmed": {"const": true}}},
+      "else": {"not": {"required": ["token"]}}
+    },
+    "error": {
+      "type": "object", "additionalProperties": false, "required": ["code", "message", "retryable", "details"],
+      "properties": {"code": {"type": "string"}, "message": {"type": "string"},
+                     "retryable": {"const": false}, "details": {"type": "object"}}
+    },
+    "response": {
+      "type": "object", "additionalProperties": false,
+      "required": ["version", "id", "command", "ok", "simulated", "status", "message", "data", "error"],
+      "properties": {
+        "version": {"const": 1}, "id": {"type": ["string", "integer", "null"]},
+        "command": {"type": ["string", "null"]}, "ok": {"type": "boolean"},
+        "simulated": {"type": "boolean"},
+        "status": {"enum": ["previewed", "accepted", "running", "completed", "idle", "stopped", "error"]},
+        "message": {"type": "string"}, "data": {"type": ["object", "null"]},
+        "error": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/error"}]}
+      },
+      "if": {"properties": {"ok": {"const": true}}},
+      "then": {"properties": {"error": {"type": "null"}}},
+      "else": {"properties": {"error": {"$ref": "#/$defs/error"}}}
+    }
+  }
+}

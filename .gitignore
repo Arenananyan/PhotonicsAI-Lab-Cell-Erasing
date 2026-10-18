@@ -1,0 +1,13 @@
+.DS_Store
+**/.venv/
+**/__pycache__/
+**/*.pyc
+**/.env
+**/.remote-access-password
+**/results/
+**/captures/
+**/*.log
+**/previous_stream.json
+**/local-stream.xml
+node_modules/
+.vscode/

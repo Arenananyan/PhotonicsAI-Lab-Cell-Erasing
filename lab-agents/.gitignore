@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+.env
+.remote-access-password
+results/
+*.log
