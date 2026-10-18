@@ -1,39 +1,42 @@
-\documentclass[11pt]{article}
-\usepackage[a4paper,left=0.75in,right=0.75in,top=0.7in,bottom=0.75in]{geometry}
-\usepackage{microtype}
-\usepackage{graphicx,booktabs,tabularx,array,xcolor,enumitem,titlesec,amsmath}
-\usepackage[unicode,hidelinks]{hyperref}
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=19mm,headheight=15pt,headsep=8mm,footskip=10mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage{graphicx,booktabs,tabularx,array,xcolor,enumitem,fancyhdr,titlesec,amsmath}
+\usepackage[unicode,colorlinks=true,urlcolor=teal,linkcolor=teal]{hyperref}
 \definecolor{labgreen}{HTML}{204D32}
 \definecolor{muted}{HTML}{56645B}
 \definecolor{rulegreen}{HTML}{A8BEAC}
 \hypersetup{pdftitle={PhotonicsAI Lab - Homework 4: Agentic Cell Erasing},pdfauthor={Aren Ananyan; David Sargsyan; Andranik Arakelyan; Yerem Bareghamyan},pdfsubject={From Prototype to Product: implementation, evidence, limitations and future applications}}
-\pagestyle{plain}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\sffamily\color{labgreen}PHOTONICSAI LAB}
+\fancyhead[R]{\small\sffamily Homework 4 / From Prototype to Product}
+\fancyfoot[L]{\small\color{muted}18 October 2026}
+\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
 \setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
-\setlength{\emergencystretch}{2em}
 \setlist[itemize]{nosep,leftmargin=15pt,topsep=3pt}
 \setlist[enumerate]{nosep,leftmargin=17pt,topsep=3pt}
-\titleformat{\section}{\large\bfseries}{\thesection}{.6em}{}
-\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+\titleformat{\section}{\large\sffamily\bfseries\color{labgreen}}{\thesection}{.6em}{}
+\titleformat{\subsection}{\normalsize\sffamily\bfseries\color{labgreen}}{}{0em}{}
 \titlespacing*{\section}{0pt}{10pt}{5pt}
 \titlespacing*{\subsection}{0pt}{7pt}{3pt}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \newcommand{\repo}{https://github.com/Arenananyan/PhotonicsAI-Lab-Cell-Erasing}
-\newcommand{\smallcaption}[1]{{\small#1\par}}
+\newcommand{\smallcaption}[1]{{\footnotesize\color{muted}#1\par}}
 \begin{document}
-\begin{center}
-{\small\textsc{PhotonicsAI}\quad |\quad\textsc{AI-Driven Science and Autonomous Laboratories}}\\[7pt]
-{\Large\bfseries Homework 4}\\[4pt]
-{\small From Prototype to Product: Agentic Cell Erasing}\\[5pt]
-Aren Ananyan\quad |\quad David Sargsyan\\[3pt]
-Andranik Arakelyan\quad |\quad Yerem Bareghamyan\\[5pt]
-October 2026
-\end{center}
-\vspace{2pt}\hrule\vspace{5pt}
+{\sffamily\color{muted}TEAM PROJECT REPORT\par}
+{\Huge\sffamily\bfseries\color{labgreen}Agentic Cell Erasing\par}
+{\Large\sffamily From Prototype to Product\par}
+\vspace{5pt}
+\textbf{Aren Ananyan \quad David Sargsyan}\\
+\textbf{Andranik Arakelyan \quad Yerem Bareghamyan}\\
+PhotonicsAI Lab / Yerevan State University
+
 \textbf{Code, presentation and recordings:}\\
 \href{\repo}{github.com/Arenananyan/PhotonicsAI-Lab-Cell-Erasing}
 
-\section*{Task 1. Extend and demonstrate the hardware-integrated AI system}
-\subsection{(a) Project objective and implemented extension}
+\section{Project objective and implemented extension}
 We developed a prototype that connects natural-language requests to calibrated
 visual measurements and supervised printer motion. A user can inspect colored
 marks, select a cell by size or spatial relationship, review a path and authorize
@@ -46,7 +49,7 @@ cell images, task suggestions, structured relational requests, operator approval
 and a queue for multiple targets. The emphasis is on turning separate device
 interfaces into an inspectable, usable workflow.
 
-\subsection{(b) System architecture}
+\section{System architecture}
 \begin{tabularx}{\linewidth}{@{}p{32mm}Y@{}}
 \toprule
 \textbf{Component} & \textbf{Responsibility}\\\midrule
@@ -68,7 +71,7 @@ controls and preview. Tool evidence is treated as data, not as instructions.
 Physical action remains separate from a model's interpretation of the request.
 
 \newpage
-\section*{(c) Reasoning, measurement and operator control}
+\section{Reasoning, measurement and operator control}
 \subsection{Implemented command families}
 \begin{tabularx}{\linewidth}{@{}p{36mm}Y@{}}
 \toprule
@@ -120,7 +123,7 @@ remaining color prevents a ``clean'' result. The possible verdicts are
 not proof of mechanical contact. Simulated movement is identified explicitly.
 
 \newpage
-\section*{(d) Product interface}
+\section{Product interface}
 The website keeps successive requests in one conversation. New chats are explicit;
 history, deletion, clarification and approval share the same workspace. Suggested
 actions fill a draft rather than executing a tool. Board pictures and individual
@@ -144,7 +147,7 @@ a production deployment would require stronger transport and access controls.
 Camera-specific calibration must be performed for the actual setup.
 
 \newpage
-\section*{(e) Validation and supplied evidence}
+\section{Validation and supplied evidence}
 The submission copy was checked with the existing local Python environments.
 All listed software checks passed. Test fixtures, local sockets and mocked APIs
 were used; no real motion or live Groq request was issued during packaging.
@@ -202,7 +205,7 @@ Scripted demo mode demonstrates the workflow, not live language-model reasoning.
 \textbf{Detailed checks:} \href{\repo/blob/main/docs/VALIDATION.md}{Package validation and evidence scope}
 
 \newpage
-\section*{(f) Limitations and future applications}
+\section{Limitations and future applications}
 \subsection{Current prototype limits}
 Recognition is based on color/image processing and calibrated geometry, not a
 trained biological-cell or PCB-defect model. Lighting, occlusion, board movement
