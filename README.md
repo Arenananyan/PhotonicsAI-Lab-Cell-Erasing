@@ -18,8 +18,8 @@ chat dashboard, calibrated camera scanner and bounded printer MCP interface.
 | `camera-control/` | Optional Blackmagic iPhone adapter; Android does not need it |
 | `presentation/` | Supplied 10-slide presentation PDF |
 | `screenshots/` | Website UI screenshots (offline demonstration data) |
-| `videos/` | Add demonstration recordings here |
-| `docs/` | Validation notes and future report sources |
+| `videos/` | Two supplied hardware recordings |
+| `docs/` | Validation notes and editable LaTeX report sources |
 | `scripts/` | Environment setup and offline checks |
 
 The components stay as siblings: image workers and MCP startup use these relative
@@ -149,4 +149,35 @@ stale camera evidence still stops/pauses the workflow.
 Live hardware was used in the original project. The copied submission must be
 validated against the present camera/board before a new live presentation. Two supplied video recordings are included in `videos/` as `IMG_0030.MOV` and
 `IMG_7455.MOV`. Their filenames are preserved; no specific physical outcome is
-claimed here without reviewing the footage. The final PDF report is pending.
+claimed here without reviewing the footage. The [final team report](output/pdf/PhotonicsAI_Homework4_Report.pdf) documents the implementation, evidence and future directions.
+
+
+## Future applications
+
+This is a **supervised prototype**. Colored-mark erasing is its first demonstration
+application. Its reusable loop is: understand a request → locate a target → measure
+and select → propose a path → obtain operator approval → execute → inspect the result.
+The same architecture could be adapted to other instruments and tools.
+
+| Development direction | Possible application | What must be added and validated |
+| --- | --- | --- |
+| Biomedical laboratories | Select a specimen region; position a camera or measurement probe | Microscopy-specific recognition, finer positioning, sample-compatible tools and application-specific validation |
+| PCB inspection and repair support | Locate a component or suspected defect, position a probe, or assist local cleaning | PCB-specific perception, calibrated tooling, electrical precautions and force/temperature control where relevant |
+| Industrial inspection | Measure, mark or locally process a selected region | Material-specific sensing, tools, tolerances and validated result criteria |
+| Education and research | Supervised experiments and new instrument workflows | MCP adapters, repeatable procedures and structured records |
+
+These are proposed directions, not capabilities demonstrated by the current
+submission. The colored marks are not biological cells; no clinical application
+or actual PCB repair is claimed. The next work should quantify targeting error,
+repeatability, tool contact and removal effectiveness in controlled trials.
+
+## Report and presentation
+
+- [Homework 4 team report (PDF)](output/pdf/PhotonicsAI_Homework4_Report.pdf)
+- [Editable LaTeX source](docs/report/main.tex)
+- [Supplied presentation](presentation/agentic_cell_erasing_simple.pdf)
+- [Validation details](docs/VALIDATION.md)
+
+The report includes all four team members, the implemented product extension,
+UI screenshots, the scope of the 341 software checks, supplied recordings,
+limitations and proposed applications. Rebuild the PDF with `sh docs/report/build.sh` (requires Tectonic).

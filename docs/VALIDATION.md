@@ -48,4 +48,4 @@ calibration and successful model access.
 
 Two operator-supplied recordings, IMG_0030.MOV and IMG_7455.MOV, were added after
 these checks. They are supplementary material; these test results do not validate
-their contents. The final PDF report is pending.
+their contents. The final report is included in output/pdf/PhotonicsAI_Homework4_Report.pdf; its editable source is docs/report/main.tex.
